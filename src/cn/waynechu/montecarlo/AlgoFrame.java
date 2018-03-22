@@ -14,8 +14,7 @@ public class AlgoFrame extends JFrame {
 
     private int canvasWidth;
     private int canvasHeight;
-    private Circle circle;
-    private LinkedList<Point> points;
+    private MonteCarloData data;
 
     public AlgoFrame(String title, int canvasWidth, int canvasHeight) {
         super(title);
@@ -35,9 +34,8 @@ public class AlgoFrame extends JFrame {
         pack();
     }
 
-    public void render(Circle circle, LinkedList<Point> points) {
-        this.circle = circle;
-        this.points = points;
+    public void render(MonteCarloData data) {
+        this.data = data;
         // 重新绘制
         repaint();
     }
@@ -72,10 +70,11 @@ public class AlgoFrame extends JFrame {
             // 设置颜色
             AlgoVisHelper.setColor(graphics2D, AlgoVisHelper.Blue);
             // 绘制图形
+            Circle circle = data.getCircle();
             AlgoVisHelper.strokeCircle(graphics2D, circle.getX(), circle.getY(), circle.getR());
             Point point;
-            for (int i = 0; i < points.size(); i++) {
-                point = points.get(i);
+            for (int i = 0; i < data.getPointNumber(); i++) {
+                point = data.getPoint(i);
                 if (circle.contain(point)) {
                     AlgoVisHelper.setColor(graphics2D, AlgoVisHelper.Red);
                 } else {

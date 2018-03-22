@@ -7,9 +7,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.LinkedList;
 import java.util.Random;
-import java.util.Vector;
 
 /**
  * @author waynechu
@@ -19,8 +17,7 @@ public class AlgoVisualizer {
     /**
      * 数据
      **/
-    private Circle circle;
-    private LinkedList<Point> points;
+    private MonteCarloData data;
     /**
      * 视图
      **/
@@ -44,8 +41,8 @@ public class AlgoVisualizer {
         }
         // 初始化数据
         this.number = number;
-        circle = new Circle(sceneWidth / 2, sceneHeight / 2, sceneWidth / 2);
-        points = new LinkedList<>();
+        Circle circle = new Circle(sceneWidth / 2, sceneHeight / 2, sceneWidth / 2);
+        data = new MonteCarloData(circle);
 
         // 初始化视图
         EventQueue.invokeLater(() -> {
@@ -63,18 +60,23 @@ public class AlgoVisualizer {
      * 动画逻辑
      */
     private void run() {
+        Random random = new Random();
+        Point p;
         for (int i = 0; i < number; i++) {
-            // 绘制数据
-            frame.render(circle, points);
-            // 画面停留时间
-            AlgoVisHelper.pause(DELAY);
+            // 每投100个点绘制一次并输出计算结果
+            if (i % 100 == 0) {
+                // 绘制数据
+                frame.render(data);
+                // 画面停留时间
+                AlgoVisHelper.pause(DELAY);
+                // 打印PI值
+                System.out.println("[" + i + "]PI ≈ " + data.estimatePi());
+            }
             // 更新数据
             if (isAnimated) {
-                Random random = new Random();
                 int x = random.nextInt(frame.getCanvasWidth()) + 1;
                 int y = random.nextInt(frame.getCanvasHeight()) + 1;
-                Point p = new Point(x, y);
-                points.add(p);
+                data.addPoint(new Point(x, y));
             }
         }
     }
