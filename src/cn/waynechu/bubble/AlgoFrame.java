@@ -68,8 +68,10 @@ public class AlgoFrame extends JFrame {
             // 设置颜色
             AlgoVisHelper.setColor(graphics2D, AlgoVisHelper.Blue);
             // 绘制图形
-            for (Circle circle : circles) {
-                AlgoVisHelper.strokeCircle(graphics2D, circle.x, circle.y, circle.getR());
+            if (circles.length != 0) {
+                for (Circle circle : circles) {
+                    AlgoVisHelper.strokeCircle(graphics2D, circle.x, circle.y, circle.getR());
+                }
             }
         }
 
