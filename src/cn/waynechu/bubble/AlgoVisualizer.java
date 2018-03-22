@@ -33,18 +33,42 @@ public class AlgoVisualizer {
         // 初始化数据
         circles = new Circle[number];
         Random random = new Random();
-        for (int i = 0; i < number; i++) {
-            // 坐标为 r~w-r
+
+        // 添加第一个小球
+        // 坐标为 r~w-r
+        int x1 = random.nextInt(sceneWidth - 2 * radius + 1) + radius;
+        int y1 = random.nextInt(sceneHeight - 2 * radius + 1) + radius;
+        // 速度为-5~5（除去0，防止水平或纵向来回滚动）
+        int randomX1 = random.nextInt(11) - 5;
+        int randomY1 = random.nextInt(11) - 5;
+        int vx1 = (randomX1 == 0 ? 1 : randomX1);
+        int vy1 = (randomY1 == 0 ? 1 : randomY1);
+        circles[0] = new Circle(x1, y1, radius, vx1, vy1);
+
+        // 添加剩余小球
+        for (int i = 1; i < number; i++) {
+            // 圆心坐标
             int x = random.nextInt(sceneWidth - 2 * radius + 1) + radius;
             int y = random.nextInt(sceneHeight - 2 * radius + 1) + radius;
-            // 速度为-5~5（除去0，防止水平或纵向来回滚动）
+            // 速度
             int randomX = random.nextInt(11) - 5;
             int randomY = random.nextInt(11) - 5;
             int vx = (randomX == 0 ? 1 : randomX);
             int vy = (randomY == 0 ? 1 : randomY);
-            circles[i] = new Circle(x, y, radius, vx, vy);
+            // 判断要添加的小球是否和已存在的小球重叠
+            for (int j = 0; j < i; j++) {
+                int dx = x - circles[j].x;
+                int dy = y - circles[j].y;
+                double distance = Math.sqrt(dx * dx + dy * dy);
+                int l = radius + circles[j].getR();
+                if (distance > l) {
+                    circles[i] = new Circle(x, y, radius, vx, vy);
+                } else {
+                    i -= 1;
+                    break;
+                }
+            }
         }
-
 
         EventQueue.invokeLater(() -> {
             frame = new AlgoFrame("模拟小球碰撞", sceneWidth, sceneHeight);
@@ -71,6 +95,27 @@ public class AlgoVisualizer {
             if (isAnimated) {
                 for (Circle circle : circles) {
                     circle.move(0, 0, frame.getCanvasWidth(), frame.getCanvasHeight());
+                }
+                checkCollisionOthers(circles);
+            }
+        }
+    }
+
+    /**
+     * 检测是否和其他小球碰撞 TODO 1.存在小球撞进另一个小球的情况 2.未考虑小球互相撞击速度传递问题
+     **/
+    private void checkCollisionOthers(Circle[] circles) {
+        for (int i = 0; i < circles.length; i++) {
+            for (int j = i + 1; j < circles.length; j++) {
+                int x = circles[i].x - circles[j].x;
+                int y = circles[i].y - circles[j].y;
+                double distance = Math.sqrt(x * x + y * y);
+                int l = circles[i].getR() + circles[j].getR();
+                if (distance <= l) {
+                    circles[i].vx = -circles[i].vx;
+                    circles[i].vy = -circles[i].vy;
+                    circles[j].vx = -circles[j].vx;
+                    circles[j].vy = -circles[j].vy;
                 }
             }
         }
