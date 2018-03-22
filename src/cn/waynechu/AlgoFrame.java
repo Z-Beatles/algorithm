@@ -11,6 +11,7 @@ public class AlgoFrame extends JFrame {
 
     private int canvasWidth;
     private int canvasHeight;
+    private Circle[] circles;
 
     public AlgoFrame(String title, int canvasWidth, int canvasHeight) {
         super(title);
@@ -29,6 +30,12 @@ public class AlgoFrame extends JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         // 窗口可见
         setVisible(true);
+    }
+
+    public void render(Circle[] circles) {
+        this.circles = circles;
+        // 重新绘制
+        repaint();
     }
 
     public int getCanvasWidth() {
@@ -56,14 +63,13 @@ public class AlgoFrame extends JFrame {
             graphics2D.addRenderingHints(hints);
 
             // 设置画笔宽度
-            AlgoVisHelper.setStrokeWidth(graphics2D, 5);
+            AlgoVisHelper.setStrokeWidth(graphics2D, 1);
             // 设置颜色
             AlgoVisHelper.setColor(graphics2D, Color.BLUE);
             // 绘制图形
-            AlgoVisHelper.fillCircle(graphics2D, 250, 250, 200);
-
-            AlgoVisHelper.setColor(graphics2D, Color.RED);
-            AlgoVisHelper.strokeCircle(graphics2D, 250, 250, 200);
+            for (Circle circle : circles) {
+                AlgoVisHelper.strokeCircle(graphics2D, circle.x, circle.y, circle.getR());
+            }
         }
 
         @Override

@@ -30,4 +30,12 @@ public class AlgoVisHelper {
         Ellipse2D circle = new Ellipse2D.Float(x - r, y - r, 2 * r, 2 * r);
         g2d.fill(circle);
     }
+
+    public static void pause(long millis){
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 }
