@@ -5,7 +5,6 @@ package cn.waynechu;
  * Created 2018-03-22 12:01
  */
 public class Circle {
-
     /** 圆心 **/
     public int x, y;
     /** 半径 **/
@@ -31,20 +30,28 @@ public class Circle {
         checkCollision(minX, minY, canvasWidth, canvasHeight);
     }
 
+    /**
+     * 边界碰撞检测
+     *
+     * @param minX
+     * @param minY
+     * @param maxX
+     * @param maxY
+     */
     private void checkCollision(int minX, int minY, int maxX, int maxY) {
-        if (x - r < minX) {
+        if (x - r <= minX) {
             x = r;
             vx = -vx;
         }
-        if (x + r > maxX) {
+        if (x + r >= maxX) {
             x = maxX - r;
             vx = -vx;
         }
-        if (y - r < minY) {
+        if (y - r <= minY) {
             y = r;
             vy = -vy;
         }
-        if (y + r > maxY) {
+        if (y + r >= maxY) {
             y = maxY - r;
             vy = -vy;
         }
