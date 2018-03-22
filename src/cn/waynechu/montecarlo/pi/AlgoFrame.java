@@ -1,10 +1,9 @@
-package cn.waynechu.montecarlo;
+package cn.waynechu.montecarlo.pi;
 
 import cn.waynechu.bubble.AlgoVisHelper;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.LinkedList;
 
 /**
  * @author waynechu

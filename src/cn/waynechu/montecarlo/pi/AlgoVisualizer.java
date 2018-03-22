@@ -1,4 +1,4 @@
-package cn.waynechu.montecarlo;
+package cn.waynechu.montecarlo.pi;
 
 import cn.waynechu.bubble.AlgoVisHelper;
 

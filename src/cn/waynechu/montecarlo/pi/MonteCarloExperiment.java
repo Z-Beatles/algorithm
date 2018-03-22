@@ -1,7 +1,4 @@
-package cn.waynechu.montecarlo.monter;
-
-import cn.waynechu.montecarlo.Circle;
-import cn.waynechu.montecarlo.MonteCarloData;
+package cn.waynechu.montecarlo.pi;
 
 import java.awt.*;
 import java.util.Random;

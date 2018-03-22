@@ -1,4 +1,4 @@
-package cn.waynechu.montecarlo;
+package cn.waynechu.montecarlo.pi;
 
 import java.awt.*;
 import java.util.LinkedList;
