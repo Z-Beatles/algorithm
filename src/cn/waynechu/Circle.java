@@ -33,25 +33,25 @@ public class Circle {
     /**
      * 边界碰撞检测
      *
-     * @param minX
-     * @param minY
-     * @param maxX
-     * @param maxY
+     * @param minX 边界x最小值
+     * @param minY 边界y最小值
+     * @param maxX 边界x最大值
+     * @param maxY 边界y最大值
      */
     private void checkCollision(int minX, int minY, int maxX, int maxY) {
-        if (x - r <= minX) {
+        if (x - r < minX) {
             x = r;
             vx = -vx;
         }
-        if (x + r >= maxX) {
+        if (x + r > maxX) {
             x = maxX - r;
             vx = -vx;
         }
-        if (y - r <= minY) {
+        if (y - r < minY) {
             y = r;
             vy = -vy;
         }
-        if (y + r >= maxY) {
+        if (y + r > maxY) {
             y = maxY - r;
             vy = -vy;
         }
