@@ -1,8 +1,10 @@
-package cn.waynechu;
+package cn.waynechu.bubble;
 
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Random;
 
 /**
@@ -10,12 +12,25 @@ import java.util.Random;
  * Created 2018-03-22 13:47
  */
 public class AlgoVisualizer {
-
+    /**
+     * 数据
+     **/
     private Circle[] circles;
+    /**
+     * 视图
+     **/
     private AlgoFrame frame;
+    /**
+     * 动画状态
+     **/
     private boolean isAnimated = true;
+    /**
+     * 画面停留时间
+     **/
+    private static final int DELAY = 16;
 
     public AlgoVisualizer(int sceneWidth, int sceneHeight, int radius, int number) {
+        // 初始化数据
         circles = new Circle[number];
         Random random = new Random();
         for (int i = 0; i < number; i++) {
@@ -35,19 +50,22 @@ public class AlgoVisualizer {
             frame = new AlgoFrame("myFrame", sceneWidth, sceneHeight);
             // 添加键盘监听事件
             frame.addKeyListener(new AlgoKeyListener());
-
+            // 添加鼠标点击监听事件
+            frame.addMouseListener(new AlgoMouseListener());
+            // 开启新线程执行动画逻辑
             new Thread(this::run).start();
         });
     }
 
     /**
-     * 执行动画逻辑
+     * 动画逻辑
      */
     private void run() {
         while (true) {
             // 绘制数据
             frame.render(circles);
-            AlgoVisHelper.pause(10);
+            // 画面停留时间
+            AlgoVisHelper.pause(DELAY);
 
             // 更新数据
             if (isAnimated) {
@@ -66,6 +84,15 @@ public class AlgoVisualizer {
             if (e.getKeyChar() == ' ') {
                 isAnimated = !isAnimated;
             }
+        }
+    }
+
+    private class AlgoMouseListener extends MouseAdapter {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            // 矫正画布点击位置，减去顶部按钮的高度
+            e.translatePoint(-(frame.getBounds().width - frame.getCanvasWidth()), -(frame.getBounds().height - frame.getCanvasHeight()));
+            System.out.println(e.getPoint());
         }
     }
 

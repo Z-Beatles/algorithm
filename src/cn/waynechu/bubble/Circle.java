@@ -1,15 +1,21 @@
-package cn.waynechu;
+package cn.waynechu.bubble;
 
 /**
  * @author waynechu
  * Created 2018-03-22 12:01
  */
 public class Circle {
-    /** 圆心 **/
+    /**
+     * 圆心
+     **/
     public int x, y;
-    /** 半径 **/
+    /**
+     * 半径
+     **/
     private int r;
-    /** 速度 **/
+    /**
+     * 速度
+     **/
     public int vx, vy;
 
     public Circle(int x, int y, int r, int vx, int vy) {

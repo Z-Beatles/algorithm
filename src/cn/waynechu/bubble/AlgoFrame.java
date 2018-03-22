@@ -1,6 +1,7 @@
-package cn.waynechu;
+package cn.waynechu.bubble;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 /**
@@ -15,21 +16,20 @@ public class AlgoFrame extends JFrame {
 
     public AlgoFrame(String title, int canvasWidth, int canvasHeight) {
         super(title);
-
         this.canvasWidth = canvasWidth;
         this.canvasHeight = canvasHeight;
 
         AlgoCanvas canvas = new AlgoCanvas();
         // 设置Content Pane内容面板
         this.setContentPane(canvas);
-        pack();
-
         // 窗口大小不可变
         setResizable(false);
         // 默认关闭操作
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         // 窗口可见
         setVisible(true);
+        // 调整frame大小以适合子组件的首选大小和布局
+        pack();
     }
 
     public void render(Circle[] circles) {
@@ -49,6 +49,7 @@ public class AlgoFrame extends JFrame {
     private class AlgoCanvas extends JPanel {
 
         public AlgoCanvas() {
+            // 启用双缓存
             super(true);
         }
 
