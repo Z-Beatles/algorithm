@@ -1,7 +1,9 @@
-package cn.waynechu.bubble;
+package cn.waynechu.money;
+
+import cn.waynechu.bubble.AlgoVisHelper;
+import cn.waynechu.bubble.Circle;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 /**
@@ -12,7 +14,7 @@ public class AlgoFrame extends JFrame {
 
     private int canvasWidth;
     private int canvasHeight;
-    private Circle[] circles;
+    private int[] money;
 
     public AlgoFrame(String title, int canvasWidth, int canvasHeight) {
         super(title);
@@ -32,8 +34,8 @@ public class AlgoFrame extends JFrame {
         pack();
     }
 
-    public void render(Circle[] circles) {
-        this.circles = circles;
+    public void render(int[] money) {
+        this.money = money;
         // 重新绘制
         repaint();
     }
@@ -63,13 +65,16 @@ public class AlgoFrame extends JFrame {
             RenderingHints hints = new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
             graphics2D.addRenderingHints(hints);
 
-            // 设置画笔宽度
-            AlgoVisHelper.setStrokeWidth(graphics2D, 1);
-            // 设置颜色
-            AlgoVisHelper.setColor(graphics2D, AlgoVisHelper.Blue);
             // 绘制图形
-            for (Circle circle : circles) {
-                AlgoVisHelper.strokeCircle(graphics2D, circle.x, circle.y, circle.getR());
+            int w = canvasWidth / money.length;
+            for (int i = 0; i < money.length; i++) {
+                if (money[i] > 0) {
+                    AlgoVisHelper.setColor(graphics2D, AlgoVisHelper.Blue);
+                    AlgoVisHelper.fillRectangle(graphics2D, w * i, canvasHeight / 2 - money[i], w - 1, money[i]);
+                } else if (money[i] < 0) {
+                    AlgoVisHelper.setColor(graphics2D, AlgoVisHelper.DeepOrange);
+                    AlgoVisHelper.fillRectangle(graphics2D, w * i, canvasHeight / 2, w - 1, -money[i]);
+                }
             }
         }
 

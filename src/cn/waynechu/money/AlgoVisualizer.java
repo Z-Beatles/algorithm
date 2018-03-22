@@ -1,10 +1,13 @@
-package cn.waynechu.bubble;
+package cn.waynechu.money;
+
+import cn.waynechu.bubble.AlgoVisHelper;
 
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -15,7 +18,7 @@ public class AlgoVisualizer {
     /**
      * 数据
      **/
-    private Circle[] circles;
+    private int[] money;
     /**
      * 视图
      **/
@@ -25,33 +28,24 @@ public class AlgoVisualizer {
      **/
     private boolean isAnimated = true;
     /**
-     * 画面停留时间
+     * 画面停留时间，单位ms
      **/
-    private static final int DELAY = 16;
+    private static final int DELAY = 60;
 
-    public AlgoVisualizer(int sceneWidth, int sceneHeight, int radius, int number) {
+    public AlgoVisualizer(int sceneWidth, int sceneHeight, int number, int m) {
         // 初始化数据
-        circles = new Circle[number];
-        Random random = new Random();
+        money = new int[number];
         for (int i = 0; i < number; i++) {
-            // 坐标为 r~w-r
-            int x = random.nextInt(sceneWidth - 2 * radius + 1) + radius;
-            int y = random.nextInt(sceneHeight - 2 * radius + 1) + radius;
-            // 速度为-5~5（除去0，防止水平或纵向来回滚动）
-            int randomX = random.nextInt(11) - 5;
-            int randomY = random.nextInt(11) - 5;
-            int vx = (randomX == 0 ? 1 : randomX);
-            int vy = (randomY == 0 ? 1 : randomY);
-            circles[i] = new Circle(x, y, radius, vx, vy);
+            // 初始化钱数量为m
+            money[i] = m;
         }
 
-
         EventQueue.invokeLater(() -> {
-            frame = new AlgoFrame("模拟小球碰撞", sceneWidth, sceneHeight);
+            frame = new AlgoFrame("模拟随机分钱问题", sceneWidth, sceneHeight);
             // 添加键盘监听事件
-            frame.addKeyListener(new AlgoKeyListener());
+            frame.addKeyListener(new AlgoVisualizer.AlgoKeyListener());
             // 添加鼠标点击监听事件
-            frame.addMouseListener(new AlgoMouseListener());
+            frame.addMouseListener(new AlgoVisualizer.AlgoMouseListener());
             // 开启新线程执行动画逻辑
             new Thread(this::run).start();
         });
@@ -62,15 +56,27 @@ public class AlgoVisualizer {
      */
     private void run() {
         while (true) {
+            // 对财富值排序
+            Arrays.sort(money);
             // 绘制数据
-            frame.render(circles);
+            frame.render(money);
             // 画面停留时间
             AlgoVisHelper.pause(DELAY);
 
             // 更新数据
+            Random random = new Random();
+            // 每次重绘交易笔数
+            int iteration = 40;
             if (isAnimated) {
-                for (Circle circle : circles) {
-                    circle.move(0, 0, frame.getCanvasWidth(), frame.getCanvasHeight());
+                for (int k = 0; k < iteration; k++) {
+                    for (int i = 0; i < money.length; i++) {
+                        //if (money[i] > 0) {
+                        // 随机给另外一个人钱
+                        int j = random.nextInt(money.length);
+                        money[i] -= 1;
+                        money[j] += 1;
+                        //}
+                    }
                 }
             }
         }
@@ -99,9 +105,11 @@ public class AlgoVisualizer {
     public static void main(String[] args) {
         int sceneWidth = 800;
         int sceneHeight = 800;
-        int radius = 50;
-        int number = 10;
+        // 人数
+        int number = 100;
+        // 初始财富值
+        int money = 100;
 
-        new AlgoVisualizer(sceneWidth, sceneHeight, radius, number);
+        new AlgoVisualizer(sceneWidth, sceneHeight, number, money);
     }
 }
