@@ -31,10 +31,15 @@ public class AlgoVisualizer {
      * 画面停留时间，单位ms
      **/
     private static final int DELAY = 60;
+    /**
+     * 每次重绘时的交易笔数
+     **/
+    private int iteration = 40;
 
-    public AlgoVisualizer(int sceneWidth, int sceneHeight, int number, int m) {
+    public AlgoVisualizer(int sceneWidth, int sceneHeight, int number, int m, int iteration) {
         // 初始化数据
         money = new int[number];
+        this.iteration = iteration;
         for (int i = 0; i < number; i++) {
             // 初始化钱数量为m
             money[i] = m;
@@ -66,7 +71,6 @@ public class AlgoVisualizer {
             // 更新数据
             Random random = new Random();
             // 每次重绘交易笔数
-            int iteration = 40;
             if (isAnimated) {
                 for (int k = 0; k < iteration; k++) {
                     for (int i = 0; i < money.length; i++) {
@@ -109,7 +113,9 @@ public class AlgoVisualizer {
         int number = 100;
         // 初始财富值
         int money = 100;
+        // 每次重绘时的交易笔数
+        int iteration = 40;
 
-        new AlgoVisualizer(sceneWidth, sceneHeight, number, money);
+        AlgoVisualizer algoVisualizer = new AlgoVisualizer(sceneWidth, sceneHeight, number, money, iteration);
     }
 }
