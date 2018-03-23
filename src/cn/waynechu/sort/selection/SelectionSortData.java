@@ -1,7 +1,5 @@
 package cn.waynechu.sort.selection;
 
-import cn.waynechu.AlgoVisHelper;
-
 import java.util.Random;
 
 /**
@@ -9,31 +7,38 @@ import java.util.Random;
  * Created 2018-03-22 20:08
  */
 public class SelectionSortData {
-    private Member[] members;
+    private int[] numbers;
+    /**
+     * [0, orderedIndex) 有序
+     **/
+    public int orderedIndex = -1;
+    /**
+     * 当前比较的元素索引
+     **/
+    public int currentCompareIndex = -1;
+    /**
+     * 当前找到的最小元素索引
+     **/
+    public int currentMinIndex = -1;
 
     public SelectionSortData(int n, int randomBound) {
-        this.members = new Member[n];
+        this.numbers = new int[n];
         Random random = new Random();
-        Member member;
         for (int i = 0; i < n; i++) {
-            member = new Member();
-            member.setNumber(random.nextInt(randomBound) + 1);
-            // 初始化颜色为灰色
-            member.setColor(AlgoVisHelper.Grey);
-            members[i] = member;
+            numbers[i] = random.nextInt(randomBound) + 1;
         }
     }
 
-    public Member[] getMembers() {
-        return members;
+    public int[] getNumbers() {
+        return numbers;
     }
 
     /**
-     * 交换index为i和j的两个member对象
+     * 交换index为i和j的两个number值
      **/
     public void swap(int i, int j) {
-        Member tmp = members[i];
-        members[i] = members[j];
-        members[j] = tmp;
+        int tmp = numbers[i];
+        numbers[i] = numbers[j];
+        numbers[j] = tmp;
     }
 }

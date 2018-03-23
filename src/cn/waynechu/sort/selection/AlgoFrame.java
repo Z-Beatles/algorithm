@@ -67,12 +67,22 @@ public class AlgoFrame extends JFrame {
             // 设置画笔宽度
             AlgoVisHelper.setStrokeWidth(graphics2D, 1);
             // 绘制图形
-            if (data.getMembers() != null) {
-                int w = canvasWidth / data.getMembers().length;
-                for (int i = 0; i < data.getMembers().length; i++) {
-                    // 设置颜色
-                    AlgoVisHelper.setColor(graphics2D, data.getMembers()[i].getColor());
-                    AlgoVisHelper.fillRectangle(graphics2D, i * w, canvasHeight - data.getMembers()[i].getNumber(), w - 1, data.getMembers()[i].getNumber());
+            if (data.getNumbers() != null) {
+                int w = canvasWidth / data.getNumbers().length;
+                for (int i = 0; i < data.getNumbers().length; i++) {
+                    // 为不同排序状态设置不同的颜色
+                    if (i < data.orderedIndex) {
+                        AlgoVisHelper.setColor(graphics2D, AlgoVisHelper.LightBlue);
+                    } else {
+                        AlgoVisHelper.setColor(graphics2D, AlgoVisHelper.Grey);
+                    }
+                    if (i == data.currentCompareIndex) {
+                        AlgoVisHelper.setColor(graphics2D, AlgoVisHelper.Orange);
+                    }
+                    if (i == data.currentMinIndex) {
+                        AlgoVisHelper.setColor(graphics2D, AlgoVisHelper.Red);
+                    }
+                    AlgoVisHelper.fillRectangle(graphics2D, i * w, canvasHeight - data.getNumbers()[i], w - 1, data.getNumbers()[i]);
                 }
             }
         }
