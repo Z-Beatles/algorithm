@@ -29,7 +29,7 @@ public class AlgoVisualizer {
      **/
     private static final int DELAY = 16;
 
-    public AlgoVisualizer(int sceneWidth, int sceneHeight, int radius, int number) {
+    public AlgoVisualizer(int sceneWidth, int sceneHeight, int radius, int number, int fromSpeed, int toSpeed) {
         // 初始化数据
         circles = new Circle[number];
         Random random = new Random();
@@ -39,8 +39,8 @@ public class AlgoVisualizer {
         int x1 = random.nextInt(sceneWidth - 2 * radius + 1) + radius;
         int y1 = random.nextInt(sceneHeight - 2 * radius + 1) + radius;
         // 速度为-5~5（除去0，防止水平或纵向来回滚动）
-        int randomX1 = random.nextInt(11) - 5;
-        int randomY1 = random.nextInt(11) - 5;
+        int randomX1 = random.nextInt(toSpeed - fromSpeed + 1) + fromSpeed;
+        int randomY1 = random.nextInt(toSpeed - fromSpeed + 1) + fromSpeed;
         int vx1 = (randomX1 == 0 ? 1 : randomX1);
         int vy1 = (randomY1 == 0 ? 1 : randomY1);
         circles[0] = new Circle(x1, y1, radius, vx1, vy1);
@@ -51,8 +51,8 @@ public class AlgoVisualizer {
             int x = random.nextInt(sceneWidth - 2 * radius + 1) + radius;
             int y = random.nextInt(sceneHeight - 2 * radius + 1) + radius;
             // 速度
-            int randomX = random.nextInt(11) - 5;
-            int randomY = random.nextInt(11) - 5;
+            int randomX = random.nextInt(toSpeed - fromSpeed + 1) + fromSpeed;
+            int randomY = random.nextInt(toSpeed - fromSpeed + 1) + fromSpeed;
             int vx = (randomX == 0 ? 1 : randomX);
             int vy = (randomY == 0 ? 1 : randomY);
             // 判断要添加的小球是否和已存在的小球重叠
@@ -62,8 +62,10 @@ public class AlgoVisualizer {
                 double distance = Math.sqrt(dx * dx + dy * dy);
                 int l = radius + circles[j].getR();
                 if (distance > l) {
+                    // 未重叠则添加该小球
                     circles[i] = new Circle(x, y, radius, vx, vy);
                 } else {
+                    // 重新添加
                     i -= 1;
                     break;
                 }
@@ -102,20 +104,24 @@ public class AlgoVisualizer {
     }
 
     /**
-     * 检测是否和其他小球碰撞 TODO 1.存在小球撞进另一个小球的情况 2.未考虑小球互相撞击速度传递问题
+     * 检测是否和其他小球碰撞
      **/
     private void checkCollisionOthers(Circle[] circles) {
-        for (int i = 0; i < circles.length; i++) {
+        for (int i = 0; i < circles.length - 1; i++) {
             for (int j = i + 1; j < circles.length; j++) {
                 int x = circles[i].x - circles[j].x;
                 int y = circles[i].y - circles[j].y;
                 double distance = Math.sqrt(x * x + y * y);
                 int l = circles[i].getR() + circles[j].getR();
                 if (distance <= l) {
-                    circles[i].vx = -circles[i].vx;
-                    circles[i].vy = -circles[i].vy;
-                    circles[j].vx = -circles[j].vx;
-                    circles[j].vy = -circles[j].vy;
+                    // 碰撞则交换速度
+                    int tmpX = circles[i].vx;
+                    circles[i].vx = circles[j].vx;
+                    circles[j].vx = tmpX;
+
+                    int tmpY = circles[i].vy;
+                    circles[i].vy = circles[j].vy;
+                    circles[j].vy = tmpY;
                 }
             }
         }
@@ -144,9 +150,11 @@ public class AlgoVisualizer {
     public static void main(String[] args) {
         int sceneWidth = 800;
         int sceneHeight = 800;
-        int radius = 50;
+        int radius = 40;
         int number = 10;
+        int fromSpeed = -5;
+        int toSpeed = 5;
 
-        new AlgoVisualizer(sceneWidth, sceneHeight, radius, number);
+        new AlgoVisualizer(sceneWidth, sceneHeight, radius, number, fromSpeed, toSpeed);
     }
 }
