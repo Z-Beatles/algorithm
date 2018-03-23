@@ -1,5 +1,7 @@
 package cn.waynechu.bubble;
 
+import cn.waynechu.AlgoVisHelper;
+
 import javax.swing.*;
 import java.awt.*;
 

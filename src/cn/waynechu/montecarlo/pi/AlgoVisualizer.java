@@ -1,6 +1,6 @@
 package cn.waynechu.montecarlo.pi;
 
-import cn.waynechu.bubble.AlgoVisHelper;
+import cn.waynechu.AlgoVisHelper;
 
 import java.awt.*;
 import java.awt.event.KeyAdapter;

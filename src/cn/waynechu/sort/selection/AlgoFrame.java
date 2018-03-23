@@ -1,4 +1,4 @@
-package cn.waynechu.money;
+package cn.waynechu.sort.selection;
 
 import cn.waynechu.AlgoVisHelper;
 
@@ -13,7 +13,7 @@ public class AlgoFrame extends JFrame {
 
     private int canvasWidth;
     private int canvasHeight;
-    private int[] money;
+    private SelectionSortData data;
 
     public AlgoFrame(String title, int canvasWidth, int canvasHeight) {
         super(title);
@@ -33,8 +33,8 @@ public class AlgoFrame extends JFrame {
         pack();
     }
 
-    public void render(int[] money) {
-        this.money = money;
+    public void render(SelectionSortData data) {
+        this.data = data;
         // 重新绘制
         repaint();
     }
@@ -64,15 +64,15 @@ public class AlgoFrame extends JFrame {
             RenderingHints hints = new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
             graphics2D.addRenderingHints(hints);
 
+            // 设置画笔宽度
+            AlgoVisHelper.setStrokeWidth(graphics2D, 1);
             // 绘制图形
-            int w = canvasWidth / money.length;
-            for (int i = 0; i < money.length; i++) {
-                if (money[i] > 0) {
-                    AlgoVisHelper.setColor(graphics2D, AlgoVisHelper.Blue);
-                    AlgoVisHelper.fillRectangle(graphics2D, w * i, canvasHeight / 2 - money[i], w - 1, money[i]);
-                } else if (money[i] < 0) {
-                    AlgoVisHelper.setColor(graphics2D, AlgoVisHelper.DeepOrange);
-                    AlgoVisHelper.fillRectangle(graphics2D, w * i, canvasHeight / 2, w - 1, -money[i]);
+            if (data.getMembers() != null) {
+                int w = canvasWidth / data.getMembers().length;
+                for (int i = 0; i < data.getMembers().length; i++) {
+                    // 设置颜色
+                    AlgoVisHelper.setColor(graphics2D, data.getMembers()[i].getColor());
+                    AlgoVisHelper.fillRectangle(graphics2D, i * w, canvasHeight - data.getMembers()[i].getNumber(), w - 1, data.getMembers()[i].getNumber());
                 }
             }
         }

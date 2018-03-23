@@ -1,4 +1,4 @@
-package cn.waynechu.bubble;
+package cn.waynechu;
 
 import javax.swing.*;
 import java.awt.*;

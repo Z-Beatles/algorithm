@@ -1,6 +1,6 @@
 package cn.waynechu.money;
 
-import cn.waynechu.bubble.AlgoVisHelper;
+import cn.waynechu.AlgoVisHelper;
 
 import java.awt.*;
 import java.awt.event.KeyAdapter;
@@ -34,7 +34,7 @@ public class AlgoVisualizer {
     /**
      * 每次重绘时的交易笔数
      **/
-    private int iteration = 40;
+    private int iteration;
 
     public AlgoVisualizer(int sceneWidth, int sceneHeight, int number, int m, int iteration) {
         // 初始化数据
