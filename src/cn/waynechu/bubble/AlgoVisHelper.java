@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
+import java.util.HashMap;
 
 /**
  * Graphics2d 绘图工具类
@@ -36,6 +37,37 @@ public class AlgoVisHelper {
     public static final Color BlueGrey = new Color(0x607D8B);
     public static final Color Black = new Color(0x000000);
     public static final Color White = new Color(0xFFFFFF);
+
+    /**
+     * 随机返回一种颜色
+     */
+    public static Color randomColor(Integer key) {
+        if (key < 1 || key > 20) {
+            throw new IllegalArgumentException("key must between 1 and 20 !");
+        }
+        HashMap<Integer, Color> colors = new HashMap<>(20);
+        colors.put(1, Red);
+        colors.put(2, Pink);
+        colors.put(3, Purple);
+        colors.put(4, DeepPurple);
+        colors.put(5, Indigo);
+        colors.put(6, Blue);
+        colors.put(7, LightBlue);
+        colors.put(8, Cyan);
+        colors.put(9, Teal);
+        colors.put(10, Green);
+        colors.put(11, LightGreen);
+        colors.put(12, Lime);
+        colors.put(13, Yellow);
+        colors.put(14, Amber);
+        colors.put(15, Orange);
+        colors.put(16, DeepOrange);
+        colors.put(17, Brown);
+        colors.put(18, Grey);
+        colors.put(19, BlueGrey);
+        colors.put(20, Black);
+        return colors.get(key);
+    }
 
     /**
      * 设置画笔宽度
@@ -104,6 +136,7 @@ public class AlgoVisHelper {
         int h = metrics.getDescent();
         g.drawString(text, centerX - w / 2, centerY + h);
     }
+
 
     /**
      * 进程睡眠

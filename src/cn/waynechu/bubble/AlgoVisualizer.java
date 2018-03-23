@@ -48,6 +48,7 @@ public class AlgoVisualizer {
         int vx1 = (randomX1 == 0 ? 1 : randomX1);
         int vy1 = (randomY1 == 0 ? 1 : randomY1);
         circles[0] = new Circle(x1, y1, radius, vx1, vy1);
+        circles[0].setColor(AlgoVisHelper.randomColor(random.nextInt(20) + 1));
 
         // 添加剩余小球
         for (int i = 1; i < number; i++) {
@@ -68,6 +69,7 @@ public class AlgoVisualizer {
                 if (distance > l) {
                     // 未重叠则添加该小球
                     circles[i] = new Circle(x, y, radius, vx, vy);
+                    circles[i].setColor(AlgoVisHelper.randomColor(random.nextInt(20) + 1));
                 } else {
                     // 重新添加
                     i -= 1;
@@ -111,6 +113,7 @@ public class AlgoVisualizer {
      * 检测是否和其他小球碰撞
      **/
     private void checkCollisionOthers(Circle[] circles) {
+        Random random = new Random();
         for (int i = 0; i < circles.length - 1; i++) {
             for (int j = i + 1; j < circles.length; j++) {
                 int x = circles[i].x - circles[j].x;
@@ -126,6 +129,9 @@ public class AlgoVisualizer {
                     int tmpY = circles[i].vy;
                     circles[i].vy = circles[j].vy;
                     circles[j].vy = tmpY;
+                    // 碰撞则变换颜色
+                    circles[i].setColor(AlgoVisHelper.randomColor(random.nextInt(20) + 1));
+                    circles[j].setColor(AlgoVisHelper.randomColor(random.nextInt(20) + 1));
                 }
             }
         }

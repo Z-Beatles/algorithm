@@ -1,5 +1,7 @@
 package cn.waynechu.bubble;
 
+import java.awt.*;
+
 /**
  * @author waynechu
  * Created 2018-03-22 12:01
@@ -18,6 +20,11 @@ public class Circle {
      **/
     public int vx, vy;
 
+    /**
+     * 颜色
+     */
+    private Color color;
+
     public Circle(int x, int y, int r, int vx, int vy) {
         this.x = x;
         this.y = y;
@@ -28,6 +35,14 @@ public class Circle {
 
     public int getR() {
         return r;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+    public Color getColor() {
+        return color;
     }
 
     public void move(int minX, int minY, int canvasWidth, int canvasHeight) {

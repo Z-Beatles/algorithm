@@ -1,7 +1,6 @@
 package cn.waynechu.bubble;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 /**
@@ -65,11 +64,12 @@ public class AlgoFrame extends JFrame {
 
             // 设置画笔宽度
             AlgoVisHelper.setStrokeWidth(graphics2D, 1);
-            // 设置颜色
-            AlgoVisHelper.setColor(graphics2D, AlgoVisHelper.Blue);
+
             // 绘制图形
             if (circles != null) {
                 for (Circle circle : circles) {
+                    // 设置颜色
+                    AlgoVisHelper.setColor(graphics2D, circle.getColor());
                     AlgoVisHelper.strokeCircle(graphics2D, circle.x, circle.y, circle.getR());
                 }
             }
