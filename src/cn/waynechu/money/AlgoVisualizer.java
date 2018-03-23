@@ -11,6 +11,8 @@ import java.util.Arrays;
 import java.util.Random;
 
 /**
+ * 模拟分钱问题
+ *
  * @author waynechu
  * Created 2018-03-22 13:47
  */

@@ -6,6 +6,8 @@ import java.awt.*;
 import java.util.Arrays;
 
 /**
+ * 选择排序可视化
+ *
  * @author waynechu
  * Created 2018-03-22 13:47
  */

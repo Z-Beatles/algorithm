@@ -10,6 +10,8 @@ import java.awt.event.MouseEvent;
 import java.util.Random;
 
 /**
+ * 蒙特卡洛算法计算PI值可视化
+ *
  * @author waynechu
  * Created 2018-03-22 13:47
  */

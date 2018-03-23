@@ -3,12 +3,14 @@ package cn.waynechu.sort.selection;
 import java.util.Arrays;
 
 /**
+ * 选择排序算法
+ *
  * @author waynechu
  * Created 2018-03-23 17:26
  */
 public class SelectionSortExperiment {
 
-    public static void selectionSort(int[] numbers) {
+    private static void selectionSort(int[] numbers) {
         System.out.println(Arrays.toString(numbers));
         for (int i = 0; i < numbers.length; i++) {
             int minIndex = i;

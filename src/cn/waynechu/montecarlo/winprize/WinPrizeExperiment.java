@@ -3,6 +3,8 @@ package cn.waynechu.montecarlo.winprize;
 import java.util.Random;
 
 /**
+ * 蒙特卡洛算法解决开宝箱问题
+ *
  * @author waynechu
  * Created 2018-03-22 22:03
  */

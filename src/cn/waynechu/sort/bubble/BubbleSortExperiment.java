@@ -3,6 +3,8 @@ package cn.waynechu.sort.bubble;
 import java.util.Arrays;
 
 /**
+ * 冒泡排序算法
+ *
  * @author waynechu
  * Created 2018-03-23 20:08
  */

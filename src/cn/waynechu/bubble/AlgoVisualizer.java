@@ -10,6 +10,8 @@ import java.awt.event.MouseEvent;
 import java.util.Random;
 
 /**
+ * 模拟小球碰撞
+ *
  * @author waynechu
  * Created 2018-03-22 13:47
  */

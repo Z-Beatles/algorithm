@@ -4,6 +4,8 @@ import java.awt.*;
 import java.util.Random;
 
 /**
+ * 蒙特卡洛算法计算PI值
+ *
  * @author waynechu
  * Created 2018-03-22 20:32
  */
