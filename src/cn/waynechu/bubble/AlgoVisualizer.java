@@ -29,7 +29,10 @@ public class AlgoVisualizer {
      **/
     private static final int DELAY = 16;
 
-    public AlgoVisualizer(int sceneWidth, int sceneHeight, int radius, int number, int fromSpeed, int toSpeed) {
+    public AlgoVisualizer(int sceneWidth, int sceneHeight, int radius, int number, int speed) {
+        if (speed < 1 || speed > 10) {
+            throw new IllegalArgumentException("speed must between 1 and 10 !");
+        }
         // 初始化数据
         circles = new Circle[number];
         Random random = new Random();
@@ -39,8 +42,9 @@ public class AlgoVisualizer {
         int x1 = random.nextInt(sceneWidth - 2 * radius + 1) + radius;
         int y1 = random.nextInt(sceneHeight - 2 * radius + 1) + radius;
         // 速度为-5~5（除去0，防止水平或纵向来回滚动）
-        int randomX1 = random.nextInt(toSpeed - fromSpeed + 1) + fromSpeed;
-        int randomY1 = random.nextInt(toSpeed - fromSpeed + 1) + fromSpeed;
+        int fromSpeed = -speed;
+        int randomX1 = random.nextInt(speed - fromSpeed + 1) + fromSpeed;
+        int randomY1 = random.nextInt(speed - fromSpeed + 1) + fromSpeed;
         int vx1 = (randomX1 == 0 ? 1 : randomX1);
         int vy1 = (randomY1 == 0 ? 1 : randomY1);
         circles[0] = new Circle(x1, y1, radius, vx1, vy1);
@@ -51,8 +55,8 @@ public class AlgoVisualizer {
             int x = random.nextInt(sceneWidth - 2 * radius + 1) + radius;
             int y = random.nextInt(sceneHeight - 2 * radius + 1) + radius;
             // 速度
-            int randomX = random.nextInt(toSpeed - fromSpeed + 1) + fromSpeed;
-            int randomY = random.nextInt(toSpeed - fromSpeed + 1) + fromSpeed;
+            int randomX = random.nextInt(speed - fromSpeed + 1) + fromSpeed;
+            int randomY = random.nextInt(speed - fromSpeed + 1) + fromSpeed;
             int vx = (randomX == 0 ? 1 : randomX);
             int vy = (randomY == 0 ? 1 : randomY);
             // 判断要添加的小球是否和已存在的小球重叠
@@ -150,11 +154,13 @@ public class AlgoVisualizer {
     public static void main(String[] args) {
         int sceneWidth = 800;
         int sceneHeight = 800;
+        // 小球半径
         int radius = 40;
+        // 小球数量
         int number = 10;
-        int fromSpeed = -5;
-        int toSpeed = 5;
+        // 小球速度
+        int speed = 4;
 
-        new AlgoVisualizer(sceneWidth, sceneHeight, radius, number, fromSpeed, toSpeed);
+        new AlgoVisualizer(sceneWidth, sceneHeight, radius, number, speed);
     }
 }
