@@ -1,4 +1,4 @@
-package cn.waynechu.sort.quick;
+package cn.waynechu.sort.quick.twoways;
 
 import cn.waynechu.AlgoVisHelper;
 
@@ -13,7 +13,7 @@ public class AlgoFrame extends JFrame {
 
     private int canvasWidth;
     private int canvasHeight;
-    private QuickSortData data;
+    private TwoWaysQuickSortData data;
 
     public AlgoFrame(String title, int canvasWidth, int canvasHeight) {
         super(title);
@@ -33,7 +33,7 @@ public class AlgoFrame extends JFrame {
         pack();
     }
 
-    public void render(QuickSortData data) {
+    public void render(TwoWaysQuickSortData data) {
         this.data = data;
         // 重新绘制
         repaint();

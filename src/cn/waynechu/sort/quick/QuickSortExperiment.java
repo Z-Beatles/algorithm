@@ -120,6 +120,8 @@ public class QuickSortExperiment {
         // 3.2  【趋近有序】  元素10000个  双路快排  时间约为30ms        使用随机基准数时间降为8ms
         // 4.1  【元素相同】  元素8000个   单路快排  时间约为20ms        使用随机基准数时间升为25ms
         // 4.2  【元素相同】  元素8000个   双路快排  时间约为2ms         使用随机基准数时间升为7ms
+        //  当 元素趋于有序 时可以使用 随机基准数的方式 来优化分区
+        //  当 元素重复率高 时可以使用   双路快排的方式 来优化分区
         long startTime = System.currentTimeMillis();
         quickSort2(numbers, 0, numbers.length - 1);
         long endTime = System.currentTimeMillis();

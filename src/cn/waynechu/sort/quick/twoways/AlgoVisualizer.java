@@ -1,4 +1,4 @@
-package cn.waynechu.sort.quick;
+package cn.waynechu.sort.quick.twoways;
 
 import cn.waynechu.AlgoVisHelper;
 
@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.Random;
 
 /**
- * 快速排序可视化
+ * 双路快速排序可视化
  *
  * @author waynechu
  * Created 2018-03-25 14:25
@@ -16,7 +16,7 @@ public class AlgoVisualizer {
     /**
      * 数据
      **/
-    private QuickSortData data;
+    private TwoWaysQuickSortData data;
     /**
      * 视图
      **/
@@ -27,15 +27,15 @@ public class AlgoVisualizer {
     private int delay;
 
     public AlgoVisualizer(int sceneWidth, int sceneHeight, int n, int delay) {
-        this(sceneWidth, sceneHeight, n, delay, QuickSortData.Type.Random);
+        this(sceneWidth, sceneHeight, n, delay, TwoWaysQuickSortData.Type.Random);
     }
 
-    public AlgoVisualizer(int sceneWidth, int sceneHeight, int n, int delay, QuickSortData.Type dataType) {
+    public AlgoVisualizer(int sceneWidth, int sceneHeight, int n, int delay, TwoWaysQuickSortData.Type dataType) {
         if (delay < 0) {
             throw new IllegalArgumentException("delay must be large or equals 0  !");
         }
         // 初始化数据
-        data = new QuickSortData(n, sceneHeight, dataType);
+        data = new TwoWaysQuickSortData(n, sceneHeight, dataType);
         this.delay = delay;
         // 初始化视图
         EventQueue.invokeLater(() -> {
@@ -135,7 +135,7 @@ public class AlgoVisualizer {
         // 画面重绘延迟
         int delay = 20;
         // 初始化数组状态
-        QuickSortData.Type dataType = QuickSortData.Type.Identical;
+        TwoWaysQuickSortData.Type dataType = TwoWaysQuickSortData.Type.Identical;
 
         new AlgoVisualizer(sceneWidth, sceneHeight, n, delay, dataType);
     }

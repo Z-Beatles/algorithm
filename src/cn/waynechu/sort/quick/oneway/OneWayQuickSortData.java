@@ -1,13 +1,13 @@
-package cn.waynechu.sort.quick;
+package cn.waynechu.sort.quick.oneway;
 
 import java.util.Arrays;
 import java.util.Random;
 
 /**
  * @author waynechu
- * Created 2018-03-25 14:24
+ * Created 2018-03-25 17:30
  */
-public class QuickSortData {
+public class OneWayQuickSortData {
     public enum Type {
         /**
          * 随机大小
@@ -33,19 +33,19 @@ public class QuickSortData {
      **/
     public int currentPivot;
     /**
-     * 当前两侧扫描的元素下标
+     * 当前扫描的元素下标
      **/
-    public int currentLeftElement, currentRightElement;
+    public int currentElement;
     /**
      * 基准数归位状态，默认全为false
      **/
     public boolean[] fixedPivot;
 
-    public QuickSortData(int n, int randomBound) {
+    public OneWayQuickSortData(int n, int randomBound) {
         this(n, randomBound, Type.Random);
     }
 
-    public QuickSortData(int n, int randomBound, Type dataType) {
+    public OneWayQuickSortData(int n, int randomBound, Type dataType) {
         this.numbers = new int[n];
         this.fixedPivot = new boolean[n];
         Random random = new Random();
