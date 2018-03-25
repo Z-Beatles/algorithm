@@ -27,11 +27,15 @@ public class AlgoVisualizer {
     private int delay;
 
     public AlgoVisualizer(int sceneWidth, int sceneHeight, int n, int delay) {
+        this(sceneWidth, sceneHeight, n, delay, QuickSortData.Type.Random);
+    }
+
+    public AlgoVisualizer(int sceneWidth, int sceneHeight, int n, int delay, QuickSortData.Type dataType) {
         if (delay < 0) {
             throw new IllegalArgumentException("delay must be large or equals 0  !");
         }
         // 初始化数据
-        data = new QuickSortData(n, sceneHeight);
+        data = new QuickSortData(n, sceneHeight, dataType);
         this.delay = delay;
         // 初始化视图
         EventQueue.invokeLater(() -> {
@@ -49,6 +53,9 @@ public class AlgoVisualizer {
         System.out.println(Arrays.toString(data.getNumbers()));
         setIndexData(-1, -1, -1, -1, -1, -1);
         quickSort2(0, data.getNumbers().length - 1);
+
+        // 输出排序后的结果
+        System.out.println(Arrays.toString(data.getNumbers()));
         setIndexData(-1, -1, -1, -1, -1, -1);
     }
 
@@ -78,7 +85,7 @@ public class AlgoVisualizer {
         setIndexData(left, right, left, i, j, -1);
         while (true) {
             while (i <= right && data.getNumbers()[i] < pivot) {
-                setIndexData(left, right, left, i, -1, -1);
+                setIndexData(left, right, left, i, j, -1);
                 i++;
                 setIndexData(left, right, left, i, j, -1);
             }
@@ -90,7 +97,9 @@ public class AlgoVisualizer {
             if (i > j) {
                 break;
             }
+            setIndexData(left, right, left, i, j, -1);
             data.swap(i, j);
+            setIndexData(left, right, left, j, i, -1);
             i++;
             j--;
             setIndexData(left, right, left, i, j, -1);
@@ -125,7 +134,9 @@ public class AlgoVisualizer {
         int n = 100;
         // 画面重绘延迟
         int delay = 20;
+        // 初始化数组状态
+        QuickSortData.Type dataType = QuickSortData.Type.Identical;
 
-        new AlgoVisualizer(sceneWidth, sceneHeight, n, delay);
+        new AlgoVisualizer(sceneWidth, sceneHeight, n, delay, dataType);
     }
 }

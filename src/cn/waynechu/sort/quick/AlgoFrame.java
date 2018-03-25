@@ -83,7 +83,7 @@ public class AlgoFrame extends JFrame {
                     }
                     if (i == data.currentLeftElement) {
                         // 当前从左侧扫描的元素
-                        AlgoVisHelper.setColor(graphics2D, AlgoVisHelper.Orange);
+                        AlgoVisHelper.setColor(graphics2D, AlgoVisHelper.Amber);
                     }
                     if (i == data.currentRightElement) {
                         // 当前从右侧扫描的元素
