@@ -21,20 +21,27 @@ public class BubbleSortExperiment {
 
     private static void bubbleSort(int[] numbers) {
         System.out.println(Arrays.toString(numbers));
+        boolean didSwap;
         for (int i = numbers.length - 1; i > 0; i--) {
+            didSwap = false;
             for (int j = 0; j < i; j++) {
                 if (numbers[j + 1] > numbers[j]) {
                     int tmp = numbers[j];
                     numbers[j] = numbers[j + 1];
                     numbers[j + 1] = tmp;
+                    didSwap = true;
                 }
+            }
+            // 如果该趟扫描一次都没交换，说明元素已经有序，则无需进行后续几趟的扫描
+            if (!didSwap) {
+                return;
             }
             System.out.println(Arrays.toString(numbers));
         }
     }
 
     public static void main(String[] args) {
-        int[] numbers = new int[]{5, 4, 7, 1, 6, 2};
+        int[] numbers = new int[]{5, 4, 7, 1, 6, 2, 11, 10, 9, 8};
         bubbleSort(numbers);
     }
 }
