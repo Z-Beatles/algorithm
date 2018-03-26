@@ -44,7 +44,7 @@ public class QuickSortExperiment {
 
     /**
      * 双路快排 O(n * log2n)
-     * 用于含有元素大量重复的情况
+     * 能够应用于含有元素大量重复的情况
      * 由于双路快排两个分区的大小差不多，所以还能一定程度上减少递归栈的深度
      **/
     private static void quickSort2(int[] numbers, int left, int right) {
@@ -85,6 +85,42 @@ public class QuickSortExperiment {
         quickSort2(numbers, j + 1, right);
     }
 
+    /**
+     * 三路快排 O(n * log2n)
+     * 进一步优化含有大量重复元素时的情况，此时算法进化为O(n)级别
+     **/
+    private static void quickSort3(int[] numbers, int left, int right) {
+        if (left >= right) {
+            return;
+        }
+
+        // 产生随机的基准数 当元素大量重复，产生随机基准数的代码段可以删掉
+        Random random = new Random();
+        int randomIndex = random.nextInt(right - left + 1) + left;
+        swap(numbers, left, randomIndex);
+        int pivot = numbers[left];
+
+        // 分区 numbers[left+1...lt] < v; numbers[lt + 1...i) = v; numbers[gt... right] > v
+        int lt = left;
+        int gt = right + 1;
+        int i = left + 1;
+        while (i < gt) {
+            if (numbers[i] < pivot) {
+                swap(numbers, i, lt + 1);
+                lt++;
+                i++;
+            } else if (numbers[i] > pivot) {
+                swap(numbers, i, gt - 1);
+                gt--;
+            } else {
+                i++;
+            }
+        }
+        swap(numbers, left, lt);
+        quickSort3(numbers, left, lt - 1);
+        quickSort3(numbers, gt, right);
+    }
+
     private static void swap(int[] s, int a, int b) {
         int tmp = s[a];
         s[a] = s[b];
@@ -114,16 +150,23 @@ public class QuickSortExperiment {
 
         // 1.1  【无序数组】  元素10000个  单路快排  时间约为3ms         使用随机基准数时间升为8ms
         // 1.2  【无序数组】  元素10000个  双路快排  时间约为3ms         使用随机基准数时间升为8ms
+        // 1.3  【无序数组】  元素10000个  三路快排  时间约为3ms         使用随机基准数时间升为8ms
+
         // 2.1  【有序数组】  元素10000个  单路快排  时间约为25ms        使用随机基准数时间降为8ms
         // 2.2  【有序数组】  元素10000个  双路快排  时间约为35ms        使用随机基准数时间降为8ms
+        // 2.3  【有序数组】  元素10000个  三路快排  时间约为25ms        使用随机基准数时间降为8ms
+
         // 3.1  【趋近有序】  元素10000个  单路快排  时间约为15ms        使用随机基准数时间降为8ms
         // 3.2  【趋近有序】  元素10000个  双路快排  时间约为30ms        使用随机基准数时间降为8ms
+        // 3.3  【趋近有序】  元素10000个  三路快排  时间约为20ms        使用随机基准数时间降为8ms
+
         // 4.1  【元素相同】  元素8000个   单路快排  时间约为20ms        使用随机基准数时间升为25ms
         // 4.2  【元素相同】  元素8000个   双路快排  时间约为2ms         使用随机基准数时间升为7ms
+        // 4.3  【元素相同】  元素10000个  三路快排  时间约为0ms         使用随机基准数时间约为0ms
         //  当 元素趋于有序 时可以使用 随机基准数的方式 来优化分区
-        //  当 元素重复率高 时可以使用   双路快排的方式 来优化分区
+        //  当 元素重复率高 时可以使用 三路快排的方式 来优化分区
         long startTime = System.currentTimeMillis();
-        quickSort2(numbers, 0, numbers.length - 1);
+        quickSort3(numbers, 0, numbers.length - 1);
         long endTime = System.currentTimeMillis();
         System.out.println(endTime - startTime);
         System.out.println(Arrays.toString(numbers));

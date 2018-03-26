@@ -133,7 +133,7 @@ public class AlgoVisualizer {
         // 排序数的个数
         int n = 100;
         // 画面重绘延迟
-        int delay = 20;
+        int delay = 100;
         // 初始化数组状态
         TwoWaysQuickSortData.Type dataType = TwoWaysQuickSortData.Type.Identical;
 

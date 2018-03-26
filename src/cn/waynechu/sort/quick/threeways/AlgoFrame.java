@@ -1,4 +1,4 @@
-package cn.waynechu.sort.selection;
+package cn.waynechu.sort.quick.threeways;
 
 import cn.waynechu.AlgoVisHelper;
 
@@ -7,13 +7,13 @@ import java.awt.*;
 
 /**
  * @author waynechu
- * Created 2018-02-27 22:44
+ * Created 2018-03-26 13:18
  */
 public class AlgoFrame extends JFrame {
 
     private int canvasWidth;
     private int canvasHeight;
-    private SelectionSortData data;
+    private ThreeWaysQuickSortData data;
 
     public AlgoFrame(String title, int canvasWidth, int canvasHeight) {
         super(title);
@@ -33,7 +33,7 @@ public class AlgoFrame extends JFrame {
         pack();
     }
 
-    public void render(SelectionSortData data) {
+    public void render(ThreeWaysQuickSortData data) {
         this.data = data;
         // 重新绘制
         repaint();
@@ -71,16 +71,31 @@ public class AlgoFrame extends JFrame {
                 int w = canvasWidth / data.getNumbers().length;
                 for (int i = 0; i < data.getNumbers().length; i++) {
                     // 为不同排序状态设置不同的颜色
-                    if (i < data.orderedIndex) {
-                        AlgoVisHelper.setColor(graphics2D, AlgoVisHelper.LightBlue);
+                    if (i > data.left && i <= data.right) {
+                        // 当前正在处理的区间
+                        AlgoVisHelper.setColor(graphics2D, AlgoVisHelper.BlueGrey);
                     } else {
                         AlgoVisHelper.setColor(graphics2D, AlgoVisHelper.Grey);
                     }
-                    if (i == data.currentCompareIndex) {
+                    if (i <= data.lessThan && i >= data.left + 1) {
+                        // 小于基准数的元素区间
+                        AlgoVisHelper.setColor(graphics2D, AlgoVisHelper.Amber);
+                    }
+                    if (i >= data.greaterThan && i <= data.right) {
+                        // 大于基准数的元素区间
                         AlgoVisHelper.setColor(graphics2D, AlgoVisHelper.Orange);
                     }
-                    if (i == data.currentMinIndex) {
+                    if (i > data.lessThan && i < data.currentElement) {
+                        // 等于基准数的元素区间已经是排序好的区间，和fixedPivot颜色相同
+                        AlgoVisHelper.setColor(graphics2D, AlgoVisHelper.Blue);
+                    }
+                    if (i == data.currentPivot) {
+                        // 当前选取的基准数
                         AlgoVisHelper.setColor(graphics2D, AlgoVisHelper.Red);
+                    }
+                    if (data.fixedPivot[i]) {
+                        // 找到正确位置的元素
+                        AlgoVisHelper.setColor(graphics2D, AlgoVisHelper.Blue);
                     }
                     AlgoVisHelper.fillRectangle(graphics2D, i * w, canvasHeight - data.getNumbers()[i], w - 1, data.getNumbers()[i]);
                 }

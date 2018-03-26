@@ -1,13 +1,13 @@
-package cn.waynechu.sort.quick.twoways;
+package cn.waynechu.sort.quick.threeways;
 
 import java.util.Arrays;
 import java.util.Random;
 
 /**
  * @author waynechu
- * Created 2018-03-25 14:24
+ * Created 2018-03-26 12:11
  */
-public class TwoWaysQuickSortData {
+public class ThreeWaysQuickSortData {
     public enum Type {
         /**
          * 随机大小
@@ -29,23 +29,27 @@ public class TwoWaysQuickSortData {
      **/
     public int left, right;
     /**
-     * 当前选取的基准数下标
+     * lessThan 和 greaterThan 指针的位置
+     */
+    public int lessThan, greaterThan;
+    /**
+     * 当前选取的基准数pivot下标
      **/
     public int currentPivot;
     /**
-     * 当前两侧扫描的元素下标
+     * 当前扫描的元素 i 指针位置
      **/
-    public int currentLeftElement, currentRightElement;
+    public int currentElement;
     /**
      * 基准数归位状态，默认全为false
      **/
     public boolean[] fixedPivot;
 
-    public TwoWaysQuickSortData(int n, int randomBound) {
+    public ThreeWaysQuickSortData(int n, int randomBound) {
         this(n, randomBound, Type.Random);
     }
 
-    public TwoWaysQuickSortData(int n, int randomBound, Type dataType) {
+    public ThreeWaysQuickSortData(int n, int randomBound, Type dataType) {
         this.numbers = new int[n];
         this.fixedPivot = new boolean[n];
         Random random = new Random();
