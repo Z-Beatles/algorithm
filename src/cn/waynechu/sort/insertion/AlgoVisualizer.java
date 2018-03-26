@@ -81,9 +81,9 @@ public class AlgoVisualizer {
         // 排序数的个数
         int n = 100;
         // 画面重绘延迟
-        int delay = 100;
+        int delay = 20;
         // 初始化数据的状态
-        InsertionSortData.Type dataType = InsertionSortData.Type.NearlyOrdered;
+        InsertionSortData.Type dataType = InsertionSortData.Type.Random;
 
         new AlgoVisualizer(sceneWidth, sceneHeight, n, delay, dataType);
     }
