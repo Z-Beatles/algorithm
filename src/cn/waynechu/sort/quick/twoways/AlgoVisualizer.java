@@ -51,12 +51,12 @@ public class AlgoVisualizer {
     private void run() {
         // 输出初始化数据大小
         System.out.println(Arrays.toString(data.getNumbers()));
-        setIndexData(-1, -1, -1, -1, -1, -1);
+        setIndexData(-1, -1, -1, -1, data.getNumbers().length + 1, -1);
         quickSort2(0, data.getNumbers().length - 1);
 
         // 输出排序后的结果
         System.out.println(Arrays.toString(data.getNumbers()));
-        setIndexData(-1, -1, -1, -1, -1, -1);
+        setIndexData(-1, -1, -1, -1, data.getNumbers().length + 1, -1);
     }
 
     private void quickSort2(int left, int right) {
@@ -65,21 +65,21 @@ public class AlgoVisualizer {
         }
         if (left == right) {
             // 当前区间只有一个元素就直接作为排序好的基准数来显示
-            setIndexData(left, right, -1, -1, -1, left);
+            setIndexData(left, right, -1, -1, data.getNumbers().length + 1, left);
         }
         // 绘制当前处理的区间
-        setIndexData(left, right, -1, -1, -1, -1);
+        setIndexData(left, right, -1, -1, data.getNumbers().length + 1, -1);
 
         // 产生随机的基准数 当元素大量重复，产生随机基准数的代码段可以删掉
         Random random = new Random();
         int randomIndex = random.nextInt(right - left + 1) + left;
 
         // 绘制交换前选取的基准数
-        setIndexData(left, right, randomIndex, -1, -1, -1);
+        setIndexData(left, right, randomIndex, -1, data.getNumbers().length + 1, -1);
         data.swap(left, randomIndex);
         int pivot = data.getNumbers()[left];
         // 绘制交换后选取的基准数
-        setIndexData(left, right, left, -1, -1, -1);
+        setIndexData(left, right, left, -1, data.getNumbers().length + 1, -1);
 
         int i = left + 1, j = right;
         setIndexData(left, right, left, i, j, -1);
@@ -97,9 +97,8 @@ public class AlgoVisualizer {
             if (i > j) {
                 break;
             }
-            setIndexData(left, right, left, i, j, -1);
             data.swap(i, j);
-            setIndexData(left, right, left, j, i, -1);
+            setIndexData(left, right, left, i, j, -1);
             i++;
             j--;
             setIndexData(left, right, left, i, j, -1);

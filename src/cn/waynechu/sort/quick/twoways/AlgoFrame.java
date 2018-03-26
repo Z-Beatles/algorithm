@@ -81,12 +81,12 @@ public class AlgoFrame extends JFrame {
                         // 当前选取的基准数
                         AlgoVisHelper.setColor(graphics2D, AlgoVisHelper.Red);
                     }
-                    if (i == data.currentLeftElement) {
-                        // 当前从左侧扫描的元素
+                    if (i <= data.currentLeftElement && i >= data.left + 1) {
+                        // 小于基准元素的区间
                         AlgoVisHelper.setColor(graphics2D, AlgoVisHelper.Amber);
                     }
-                    if (i == data.currentRightElement) {
-                        // 当前从右侧扫描的元素
+                    if (i >= data.currentRightElement && i <= data.right) {
+                        // 大于基准元素的区间
                         AlgoVisHelper.setColor(graphics2D, AlgoVisHelper.Orange);
                     }
                     if (data.fixedPivot[i]) {
