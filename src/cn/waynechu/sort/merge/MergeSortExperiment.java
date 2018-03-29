@@ -22,20 +22,27 @@ import java.util.Arrays;
 public class MergeSortExperiment {
 
     private static void mergeSort(int[] numbers, int left, int right) {
+
         if (left >= right) {
             return;
         }
-        // 递归分解为左右两部分
+        // 当元素较少时，使用插入排序来优化归并排序，但是在本机上测试实际上时间更长 - -。
+//        if (right - left <= 15) {
+//            InsertionSortExperiment.insertionSort(numbers, left, right);
+//            return;
+//        }
+
+        // 递归分解为左右都有序两部分
         int mid = left + (right - left) / 2;
         mergeSort(numbers, left, mid);
         mergeSort(numbers, mid + 1, right);
-        // 归并
-        merge(numbers, left, mid, right);
+
+        // 将 numbers[left, mid] 和 numbers[mid+1, right] 两部分进行归并
+        if (numbers[mid] > numbers[mid + 1]) {
+            merge(numbers, left, mid, right);
+        }
     }
 
-    /**
-     * 将 numbers[left, mid] 和 numbers[mid+1, right] 两部分进行归并
-     **/
     private static void merge(int[] numbers, int left, int mid, int right) {
         // 创建临时数组
         int[] tmp = new int[right - left + 1];
@@ -70,9 +77,9 @@ public class MergeSortExperiment {
          *    ALL             1000 个           约为1ms
          */
         // 测试元素的数量
-        int quantity = 1000;
+        int quantity = 50000;
         // 元素大小范围
-        int randomBound = 1000;
+        int randomBound = 50000;
         // 元素初始化类型 1.Random 随机元素  2.NearlyOrdered 趋近有序  3.Identical 大量相同
         SortDataHelper.Type dataType = SortDataHelper.Type.Random;
         SortDataHelper helper = new SortDataHelper(quantity, randomBound, dataType);
