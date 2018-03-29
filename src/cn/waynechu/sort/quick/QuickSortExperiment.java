@@ -1,5 +1,7 @@
 package cn.waynechu.sort.quick;
 
+import cn.waynechu.sort.SortDataHelper;
+
 import java.util.Arrays;
 import java.util.Random;
 
@@ -143,27 +145,22 @@ public class QuickSortExperiment {
         // 3.3  【大量相同】  元素100000个  三路快排  时间约为4ms          使用随机基准数时间约为6ms
 
         // 测试元素的数量
-        int quantity = 15000;
+        int quantity = 100000;
         // 元素大小范围
         int randomBound = 100000;
         // 元素初始化类型 1.Random 随机元素  2.NearlyOrdered 趋近有序  3.Identical 大量相同
-        QuickSortData.Type dataType = QuickSortData.Type.Identical;
-        int[] numbers = new QuickSortData(quantity, randomBound, dataType).createNumbers();
+        SortDataHelper.Type dataType = SortDataHelper.Type.Random;
+        SortDataHelper helper = new SortDataHelper(quantity, randomBound, dataType);
+        int[] numbers = helper.createNumbers();
 
         // 统计算法耗时
         long startTime = System.currentTimeMillis();
-        quickSort1(numbers, 0, numbers.length - 1);
+        quickSort3(numbers, 0, numbers.length - 1);
         long endTime = System.currentTimeMillis();
         System.out.println("Time: " + (endTime - startTime) + "ms");
 
         // 判断是否有序，检测算法正确性
-        boolean ordered = true;
-        for (int i = 0; i < numbers.length - 1; i++) {
-            if (numbers[i] > numbers[i + 1]) {
-                ordered = false;
-            }
-        }
-        System.out.println(ordered ? "Status: Ordered." : "Status: Disorder!");
+        System.out.println(helper.isOrdered() ? "Status: Ordered." : "Status: Disorder!");
         System.out.println("Quantity: " + numbers.length);
         System.out.println("Sorted: " + Arrays.toString(numbers));
     }

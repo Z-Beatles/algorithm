@@ -1,20 +1,22 @@
-package cn.waynechu.sort.quick;
+package cn.waynechu.sort;
 
 import java.util.Arrays;
 import java.util.Random;
 
 /**
+ * 用于生成各种类型的测试数据
+ *
  * @author waynechu
  * Created 2018-03-26 16:08
  */
-public class QuickSortData {
+public class SortDataHelper {
     private int[] numbers;
 
-    QuickSortData(int n, int randomBound) {
+    public SortDataHelper(int n, int randomBound) {
         this(n, randomBound, Type.Random);
     }
 
-    QuickSortData(int n, int randomBound, Type dataType) {
+    public SortDataHelper(int n, int randomBound, Type dataType) {
         this.numbers = new int[n];
         Random random = new Random();
 
@@ -53,6 +55,22 @@ public class QuickSortData {
     public int[] createNumbers() {
         return numbers;
     }
+
+    /**
+     * 判断是否有序，用于检测算法正确性
+     *
+     * @return order ? true : false
+     */
+    public boolean isOrdered() {
+        boolean ordered = true;
+        for (int i = 0; i < numbers.length - 1; i++) {
+            if (numbers[i] > numbers[i + 1]) {
+                ordered = false;
+            }
+        }
+        return ordered;
+    }
+
 
     /**
      * 交换index为i和j的两个number值
