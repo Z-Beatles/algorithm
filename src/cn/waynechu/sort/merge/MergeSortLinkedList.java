@@ -20,27 +20,53 @@ public class MergeSortLinkedList {
         ListNode apart = mid.next;
         mid.next = null;
 
-        // 将 head1 和 head2 两部分进行归并
+        // 将 head1 和 head2 两个有序的单链表进行归并
         ListNode head1 = mergeSortLinkedList(head);
         ListNode head2 = mergeSortLinkedList(apart);
-        return merge(head1, head2);
+        // return mergeTwoListsByIteration(head1, head2);
+        return mergeTwoListsByRecursive(head1, head2);
     }
 
-    private static ListNode merge(ListNode a, ListNode b) {
+    /**
+     * 迭代实现的合并两个有序单链表
+     */
+    public static ListNode mergeTwoListsByIteration(ListNode l1, ListNode l2) {
         ListNode dummy = new ListNode(-1);
         ListNode curr = dummy;
-        while (a != null && b != null) {
-            if (a.val <= b.val) {
-                curr.next = a;
-                a = a.next;
+        while (l1 != null && l2 != null) {
+            if (l1.val <= l2.val) {
+                curr.next = l1;
+                l1 = l1.next;
             } else {
-                curr.next = b;
-                b = b.next;
+                curr.next = l2;
+                l2 = l2.next;
             }
             curr = curr.next;
         }
-        curr.next = (a == null) ? b : a;
+        curr.next = (l1 == null) ? l2 : l1;
         return dummy.next;
+    }
+
+    /**
+     * 递归实现的合并两个有序单链表
+     */
+    public static ListNode mergeTwoListsByRecursive(ListNode l1, ListNode l2) {
+        if (l1 == null) {
+            return l2;
+        }
+        if (l2 == null) {
+            return l1;
+        }
+
+        ListNode mergeNode;
+        if (l1.val > l2.val) {
+            mergeNode = l2;
+            mergeNode.next = mergeTwoListsByRecursive(l2.next, l1);
+        } else {
+            mergeNode = l1;
+            mergeNode.next = mergeTwoListsByRecursive(l1.next, l2);
+        }
+        return mergeNode;
     }
 
     private static ListNode getMid(ListNode head) {
