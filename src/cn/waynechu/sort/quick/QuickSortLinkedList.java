@@ -18,9 +18,9 @@ public class QuickSortLinkedList {
         int pivot = head.val;
         ListNode lt = head;
         ListNode i = head.next;
-        // 分区 [head...lt] < pivot; [lt.next...tail] >= pivot
+        // 分区 [head...lt] <= pivot; [lt.next...tail] > pivot
         while (i != tail.next) {
-            if (i.val < pivot) {
+            if (i.val <= pivot) {
                 lt = lt.next;
                 int tmp = i.val;
                 i.val = lt.val;
