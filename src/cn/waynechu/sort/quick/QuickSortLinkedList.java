@@ -10,7 +10,11 @@ import cn.waynechu.sort.ListNode;
  */
 public class QuickSortLinkedList {
 
-    public static void quickSort(ListNode head, ListNode tail) {
+    public static void quickSortLinkedList(ListNode head) {
+        quickSortLinkedList(head, null);
+    }
+
+    public static void quickSortLinkedList(ListNode head, ListNode tail) {
         if (head == null || head == tail) {
             return;
         }
@@ -19,7 +23,7 @@ public class QuickSortLinkedList {
         ListNode lt = head;
         ListNode i = head.next;
         // 分区 [head...lt] <= pivot; [lt.next...tail] > pivot
-        while (i != tail.next) {
+        while (i != tail) {
             if (i.val <= pivot) {
                 lt = lt.next;
                 int tmp = i.val;
@@ -31,8 +35,8 @@ public class QuickSortLinkedList {
         head.val = lt.val;
         lt.val = pivot;
 
-        quickSort(head, lt);
-        quickSort(lt.next, tail);
+        quickSortLinkedList(head, lt);
+        quickSortLinkedList(lt.next, tail);
     }
 
     public static void main(String[] args) {
@@ -53,7 +57,7 @@ public class QuickSortLinkedList {
         node6.next = tail;
 
         System.out.println(head.printList());
-        quickSort(head, tail);
+        quickSortLinkedList(head);
         System.out.println(head.printList());
     }
 }

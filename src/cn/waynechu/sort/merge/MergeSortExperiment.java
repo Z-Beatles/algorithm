@@ -21,8 +21,22 @@ import java.util.Arrays;
  */
 public class MergeSortExperiment {
 
-    private static void mergeSort(int[] numbers, int left, int right) {
+    /**
+     * 迭代实现的自底向上的归并排序
+     */
+    private static void mergeSortBU(int[] numbers) {
+        for (int size = 1; size <= numbers.length; size += size) {
+            for (int i = 0; i + size < numbers.length; i += size + size) {
+                // 对 numbers[i...i+size-1] 和 numbers[i+size...i+2*size-1] 进行归并
+                merge(numbers, i, i + size - 1, Math.min(i + size + size - 1, numbers.length - 1));
+            }
+        }
+    }
 
+    /**
+     * 递归实现的自顶向下的归并排序(更优)
+     */
+    private static void mergeSort(int[] numbers, int left, int right) {
         if (left >= right) {
             return;
         }
@@ -87,7 +101,8 @@ public class MergeSortExperiment {
 
         // 统计算法耗时
         long startTime = System.currentTimeMillis();
-        mergeSort(numbers, 0, numbers.length - 1);
+        //mergeSort(numbers, 0, numbers.length - 1);
+        mergeSortBU(numbers);
         long endTime = System.currentTimeMillis();
         System.out.println("Time: " + (endTime - startTime) + "ms");
 
