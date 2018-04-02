@@ -25,9 +25,22 @@ public class HeapSortExperiment {
     public static void heapSort1(int[] numbers) {
         int heapSize = numbers.length;
         MaxHeap maxHeap = new MaxHeap(heapSize);
+        // 将n个元素逐一插入到一个空堆中，时间复杂度为O(n logN)
         for (int number : numbers) {
             maxHeap.insert(number);
         }
+        for (int i = heapSize - 1; i >= 0; i--) {
+            numbers[i] = maxHeap.extractMax();
+        }
+    }
+
+    /**
+     * 优化堆排序的堆构建方式
+     **/
+    public static void heapSort2(int[] numbers) {
+        int heapSize = numbers.length;
+        // 采用heapify调整堆的方式，时间复杂度为O(n)
+        MaxHeap maxHeap = new MaxHeap(numbers);
         for (int i = heapSize - 1; i >= 0; i--) {
             numbers[i] = maxHeap.extractMax();
         }
@@ -38,19 +51,19 @@ public class HeapSortExperiment {
          *    测试结果
          *    元素类型        元素个数          排序时间
          *    1R 2N           100000 个          约为30ms
-         *    1R 2N           50000 个           约为22ms
-         *    1R 2N           10000 个           约为8ms
+         *    1R 2N           50000 个           约为18ms
+         *    1R 2N           10000 个           约为6ms
          *    1R 2N           1000 个            约为2ms
          *
-         *    3I              100000 个          约为15ms
-         *    3I              50000 个           约为13ms
-         *    3I              10000 个           约为4ms
+         *    3I              100000 个          约为13ms
+         *    3I              50000 个           约为10ms
+         *    3I              10000 个           约为3ms
          *    3I              1000 个            约为1ms
          */
         // 测试元素的数量
-        int quantity = 1000;
+        int quantity = 100000;
         // 元素大小范围
-        int randomBound = 1000;
+        int randomBound = 100000;
         // 元素初始化类型 1.Random 随机元素  2.NearlyOrdered 趋近有序  3.Identical 大量相同
         SortDataHelper.Type dataType = SortDataHelper.Type.Identical;
         SortDataHelper helper = new SortDataHelper(quantity, randomBound, dataType);
@@ -58,7 +71,7 @@ public class HeapSortExperiment {
 
         // 统计算法耗时
         long startTime = System.currentTimeMillis();
-        heapSort1(numbers);
+        heapSort2(numbers);
         long endTime = System.currentTimeMillis();
         System.out.println("Time: " + (endTime - startTime) + "ms");
 

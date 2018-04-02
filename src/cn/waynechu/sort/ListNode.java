@@ -1,6 +1,8 @@
 package cn.waynechu.sort;
 
 /**
+ * Definition for singly-linked list.
+ *
  * @author waynechu
  * Created 2018-03-29 23:18
  */

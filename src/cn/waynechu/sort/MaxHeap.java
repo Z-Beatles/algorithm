@@ -40,6 +40,16 @@ public class MaxHeap {
         }
     }
 
+    public MaxHeap(int[] arr) {
+        this.data = new int[arr.length + 1];
+        this.size = this.capacity = arr.length;
+        System.arraycopy(arr, 0, data, 1, arr.length);
+        // 从最后一个节点的父节点开始进行shiftDown调整直到形成最大堆
+        for (int i = size / 2; i >= 1; i--) {
+            shiftDown(i);
+        }
+    }
+
     /**
      * 返回当前堆内节点数
      *
