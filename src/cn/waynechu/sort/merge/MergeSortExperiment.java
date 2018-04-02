@@ -1,9 +1,5 @@
 package cn.waynechu.sort.merge;
 
-import cn.waynechu.sort.SortDataHelper;
-
-import java.util.Arrays;
-
 /**
  * 归并排序
  * <p>
@@ -24,7 +20,7 @@ public class MergeSortExperiment {
     /**
      * 迭代实现的自底向上的归并排序
      */
-    private static void mergeSortBU(int[] numbers) {
+    public static void mergeSortBU(int[] numbers) {
         for (int size = 1; size <= numbers.length; size += size) {
             for (int i = 0; i + size < numbers.length; i += size + size) {
                 // 对 numbers[i...i+size-1] 和 numbers[i+size...i+2*size-1] 进行归并
@@ -36,7 +32,7 @@ public class MergeSortExperiment {
     /**
      * 递归实现的自顶向下的归并排序(更优)
      */
-    private static void mergeSort(int[] numbers, int left, int right) {
+    public static void mergeSort(int[] numbers, int left, int right) {
         if (left >= right) {
             return;
         }
@@ -79,36 +75,5 @@ public class MergeSortExperiment {
         }
         // 覆盖回原来的数组
         System.arraycopy(tmp, 0, numbers, left, tmp.length);
-    }
-
-    public static void main(String[] args) {
-        /*
-         *    测试结果
-         *    元素类型        元素个数          排序时间
-         *    ALL             100000 个          约为25~40ms
-         *    ALL             50000 个           约为12~16ms
-         *    ALL             10000 个           约为3ms
-         *    ALL             1000 个           约为1ms
-         */
-        // 测试元素的数量
-        int quantity = 50000;
-        // 元素大小范围
-        int randomBound = 50000;
-        // 元素初始化类型 1.Random 随机元素  2.NearlyOrdered 趋近有序  3.Identical 大量相同
-        SortDataHelper.Type dataType = SortDataHelper.Type.Random;
-        SortDataHelper helper = new SortDataHelper(quantity, randomBound, dataType);
-        int[] numbers = helper.createNumbers();
-
-        // 统计算法耗时
-        long startTime = System.currentTimeMillis();
-        //mergeSort(numbers, 0, numbers.length - 1);
-        mergeSortBU(numbers);
-        long endTime = System.currentTimeMillis();
-        System.out.println("Time: " + (endTime - startTime) + "ms");
-
-        // 判断是否有序，检测算法正确性
-        System.out.println(helper.isOrdered() ? "Status: Ordered." : "Status: Disorder!");
-        System.out.println("Quantity: " + numbers.length);
-        System.out.println("Sorted: " + Arrays.toString(numbers));
     }
 }
