@@ -47,7 +47,8 @@ public class HeapSortExperiment {
     }
 
     /**
-     * 原地构建堆
+     * 原地堆排序，空间复杂度为O(1)
+     * <p>
      * parent(i) = (i - 1) / 2
      * leftChild(i) =  2 * i + 1
      * rightChild(i) = 2 * i + 2
@@ -59,10 +60,11 @@ public class HeapSortExperiment {
         for (int i = (heapSize - 1) / 2; i >= 0; i--) {
             shiftDown(numbers, heapSize, i);
         }
+        // 排序
         for (int i = heapSize - 1; i > 0; i--) {
-            // 把当前堆中最大的元素放到它合适的位置
+            // 把当前堆中最大的元素放到它合适的位置 0->i
             swap(numbers, 0, i);
-            // 其余元素继续构建最大堆
+            // 其余素从number[0]开始继续构建最大堆
             shiftDown(numbers, i, 0);
         }
     }
