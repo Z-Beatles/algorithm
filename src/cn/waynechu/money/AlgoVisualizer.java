@@ -12,6 +12,10 @@ import java.util.Random;
 
 /**
  * 模拟分钱问题
+ * <p>
+ * 问题：
+ * 房间内有 n 个人，每人有 m 块钱的初始财富值。
+ * 从1号玩家开始每隔一段时间，依次给房间中随机一个人1块钱，最后这个房间内的财富分布会怎样？
  *
  * @author waynechu
  * Created 2018-03-22 13:47
@@ -77,7 +81,7 @@ public class AlgoVisualizer {
                 for (int k = 0; k < iteration; k++) {
                     for (int i = 0; i < money.length; i++) {
                         //if (money[i] > 0) {
-                        // 随机给另外一个人钱
+                        // 随机给另外一个人钱，这里允许出现负债情况
                         int j = random.nextInt(money.length);
                         money[i] -= 1;
                         money[j] += 1;
