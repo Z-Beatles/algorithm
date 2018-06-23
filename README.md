@@ -25,6 +25,9 @@
             │       *AlgoVisualizer.java*
             │       
             ├───montecarlo    // 蒙特卡罗算法可视化
+            │   │       
+            │   ├───coin    // 掷硬币游戏
+            │   │       CoinExperiment.java
             │   ├───pi    // 计算π值
             │   │       AlgoFrame.java
             │   │       *AlgoVisualizer.java*
