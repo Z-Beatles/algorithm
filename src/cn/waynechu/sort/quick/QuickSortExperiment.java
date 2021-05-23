@@ -9,7 +9,33 @@ import java.util.Random;
 public class QuickSortExperiment {
 
     /**
-     * 普通单路快排 O(n * log2n) ~  O(n^2)
+     * 普通单路快排 O(n * log2n) ~ O(n^2)
+     **/
+    public static void quickSort(int[] numbers, int left, int right) {
+        // 递归出口
+        if (left >= right) {
+            return;
+        }
+
+        // 选择第一个元素作为标定点
+        int pivot = numbers[left];
+        int i = left;
+        // 分区 numbers[left+1...i] < pivot ; numbers[i+1...j] > pivot
+        for (int j = left + 1; j <= right; j++) {
+            if (numbers[j] < pivot) {
+                i++;
+                swap(numbers, i, j);
+            }
+        }
+        // 基准数归位
+        swap(numbers, left, i);
+
+        quickSort(numbers, left, i - 1);
+        quickSort(numbers, i + 1, right);
+    }
+
+    /**
+     * 普通单路快排 O(n * log2n) ~ O(n^2)
      * 若元素趋于有序，时间复杂度会退化到O(n^2)，使用随机基准数可优化分区 O(n * log2n)
      * 若元素大量相同，随机基准数算法会再次退化到O(n^2)，使用双路快排可
      **/
@@ -27,7 +53,7 @@ public class QuickSortExperiment {
         // pivot中存放基准数
         int pivot = numbers[left];
         int i = left;
-        // 分区 numbers[left+1...i] < pivot ; numbers[i+1...j] > pivot
+        // 分区 numbers[left+1...i] < pivot ; numbers[i+1...j] >= pivot
         for (int j = left + 1; j <= right; j++) {
             if (numbers[j] < pivot) {
                 i++;
