@@ -87,12 +87,10 @@ public class QuickSortExperiment {
      * 由于双路快排两个分区的大小差不多，所以还能一定程度上减少递归栈的深度
      **/
     public static void quickSort2(int[] numbers, int left, int right) {
-        // 递归出口
         if (left >= right) {
             return;
         }
 
-        // 产生随机的基准数 当元素大量重复，产生随机基准数的代码段可以删掉
         Random random = new Random();
         int randomIndex = random.nextInt(right - left + 1) + left;
         swap(numbers, left, randomIndex);
@@ -101,19 +99,17 @@ public class QuickSortExperiment {
         int pivot = numbers[left];
         int i = left + 1, j = right;
         while (true) {
-            // 小于基准数就一直往前找，直到找到一个数等于基准数或大于基准数
-            while (i <= right && numbers[i] < pivot) {
+            // 小于基准数就一直往前找，直到找到一个数大于基准数
+            while (i <= right && numbers[i] <= pivot) {
                 i++;
             }
-            while (j >= left + 1 && numbers[j] > pivot) {
+            while (j >= left + 1 && numbers[j] >= pivot) {
                 j--;
             }
             if (i > j) {
                 break;
             }
-            // 交换两个元素的位置
             swap(numbers, i, j);
-            // 指针向前移动一下
             i++;
             j--;
         }
