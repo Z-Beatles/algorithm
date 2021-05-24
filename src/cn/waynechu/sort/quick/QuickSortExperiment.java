@@ -1,5 +1,6 @@
 package cn.waynechu.sort.quick;
 
+import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -7,6 +8,12 @@ import java.util.Random;
  * Created 2018-03-24 15:01
  */
 public class QuickSortExperiment {
+
+    public static void main(String[] args) {
+        int[] nums = new int[]{4, 6, 2, 3, 1, 5, 7, 8};
+        quickSort(nums, 0, nums.length - 1);
+        System.out.println(Arrays.toString(nums));
+    }
 
     /**
      * 普通单路快排 O(n * log2n) ~ O(n^2)
@@ -17,21 +24,28 @@ public class QuickSortExperiment {
             return;
         }
 
+        // 划分区间
+        int i = partition(numbers, left, right);
+        // 处理左分区
+        quickSort(numbers, left, i - 1);
+        // 处理右分区
+        quickSort(numbers, i + 1, right);
+    }
+
+    private static int partition(int[] numbers, int left, int right) {
         // 选择第一个元素作为标定点
         int pivot = numbers[left];
-        int i = left;
-        // 分区 numbers[left+1...i] < pivot ; numbers[i+1...j] > pivot
-        for (int j = left + 1; j <= right; j++) {
-            if (numbers[j] < pivot) {
-                i++;
-                swap(numbers, i, j);
+        int j = left;
+        // 分区 numbers[left+1...j] < pivot ; numbers[j+1...i] >= pivot
+        for (int i = left + 1; i <= right; i++) {
+            if (numbers[i] < pivot) {
+                j++;
+                swap(numbers, j, i);
             }
         }
         // 基准数归位
-        swap(numbers, left, i);
-
-        quickSort(numbers, left, i - 1);
-        quickSort(numbers, i + 1, right);
+        swap(numbers, left, j);
+        return j;
     }
 
     /**
@@ -87,7 +101,7 @@ public class QuickSortExperiment {
         int pivot = numbers[left];
         int i = left + 1, j = right;
         while (true) {
-            // 小于基准数就一直往前找，直到找到一个数等于基准数或大于基准数，
+            // 小于基准数就一直往前找，直到找到一个数等于基准数或大于基准数
             while (i <= right && numbers[i] < pivot) {
                 i++;
             }
